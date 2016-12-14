@@ -8,20 +8,20 @@ import (
 )
 
 const (
-	usage   = "OCI runtime for Graphene Library OS"
-	logFile = "/home/sridarshan/rungraphene_log"
-	fifo_name = "exec.fifo"
-	rungrapheneWorkdir = "/run/rungraphene"
-	grapheneBootstrap = "/home/sridarshan/524_1/Graphene"
+	usage                 = "OCI runtime for Graphene Library OS"
+	logFile               = "/home/sridarshan/rungraphene_log"
+	fifo_name             = "exec.fifo"
+	rungrapheneWorkdir    = "/run/rungraphene"
+	grapheneBootstrap     = "/home/sridarshan/524_1/Graphene"
 	containerInfoJsonFile = "container_info.json"
-	manifestTemplate = "exec.manifest"
+	manifestTemplate      = "exec.manifest"
 )
 
 type ContainerCreateInfo struct {
-	Bundle string	`json:"bundle"`
-	PidFile string	`json:"pidfile"`
-	Console string	`json:"console"`
-	Id string		`json:"id"`
+	Bundle  string `json:"bundle"`
+	PidFile string `json:"pidfile"`
+	Console string `json:"console"`
+	Id      string `json:"id"`
 }
 
 func main() {
@@ -72,7 +72,7 @@ func main() {
 	}
 	defer logfile.Close()
 	log.SetOutput(logfile)
-	
+
 	if err := app.Run(os.Args); err != nil {
 		fmt.Println("error starting the app")
 	}

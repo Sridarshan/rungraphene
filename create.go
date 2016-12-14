@@ -1,16 +1,16 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
-	"encoding/json"
-	"io/ioutil"
-	
+
 	log "github.com/Sirupsen/logrus"
-	"github.com/urfave/cli"
 	oci "github.com/opencontainers/runtime-spec/specs-go"
+	"github.com/urfave/cli"
 )
 
 var createCommand = cli.Command{
@@ -48,14 +48,14 @@ var createCommand = cli.Command{
 		bundle := context.String("bundle")
 		pidfile := context.String("pid-file")
 		console := context.String("console")
-		
+
 		containerDir := filepath.Join(rungrapheneWorkdir, id)
 		log.Print("In create")
-		
+
 		_, err := os.Stat(containerDir)
 		if err != nil {
 			// this should not happen, cause delete/kill should have cleaned up properly
-			
+
 			// but for now, lets clean it up here
 			os.RemoveAll(containerDir)
 		}
@@ -63,33 +63,33 @@ var createCommand = cli.Command{
 		if err != nil {
 			log.Println("Error creating work dir for container")
 		}
-		
+
 		container := ContainerCreateInfo{
-			Bundle: bundle,
+			Bundle:  bundle,
 			Console: console,
 			PidFile: pidfile,
-			Id: id,
+			Id:      id,
 		}
-		
+
 		containerJson, _ := json.Marshal(container)
 		err = ioutil.WriteFile(filepath.Join(containerDir, containerInfoJsonFile), containerJson, 0644)
 		if err != nil {
 			log.Println("Error writing container create info to json")
 		}
-		
+
 		/*
-		cmd := exec.Command("ginit", id)
-		if err := cmd.Start(); err != nil {
-			if exErr, ok := err.(*exec.Error); ok {
-				if exErr.Err == exec.ErrNotFound || exErr.Err == os.ErrNotExist {
-					log.Println("ginit not installed on system")
-				} else {
-					log.Println("Error starting ginit", err)
+			cmd := exec.Command("ginit", id)
+			if err := cmd.Start(); err != nil {
+				if exErr, ok := err.(*exec.Error); ok {
+					if exErr.Err == exec.ErrNotFound || exErr.Err == os.ErrNotExist {
+						log.Println("ginit not installed on system")
+					} else {
+						log.Println("Error starting ginit", err)
+					}
 				}
+				// can we return an error instead? TODO
+				return nil
 			}
-			// can we return an error instead? TODO
-			return nil
-		}
 		*/
 		// copyGraphene(bundle)
 		createPidFile(pidfile, 11)
@@ -122,7 +122,7 @@ func copyGraphene(bundle string) {
 }
 
 func createPidFile(path string, pid int) error {
-	f, err := os.OpenFile(path, os.O_RDWR | os.O_CREATE | os.O_EXCL | os.O_SYNC, 0666)
+	f, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_EXCL|os.O_SYNC, 0666)
 	if err != nil {
 		log.Println(err)
 		return err
