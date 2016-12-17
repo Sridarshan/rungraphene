@@ -15,6 +15,7 @@ const (
 	grapheneBootstrap     = "/home/sridarshan/524_1/Graphene"
 	containerInfoJsonFile = "container_info.json"
 	manifestTemplate      = "exec.manifest"
+	loader = "LibOS/shim/test/native"
 )
 
 type ContainerCreateInfo struct {

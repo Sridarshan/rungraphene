@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -11,10 +11,6 @@ import (
 	log "github.com/Sirupsen/logrus"
 	oci "github.com/opencontainers/runtime-spec/specs-go"
 	"github.com/urfave/cli"
-)
-
-const (
-	loader = "LibOS/shim/test/native"
 )
 
 var startCommand = cli.Command{
@@ -33,13 +29,13 @@ var startCommand = cli.Command{
 		defer fifo.Close()
 		data, err := ioutil.ReadAll(fifo)
 		if err != nil {
-			log.Println("error reading fifo: ",err.Error())
+			log.Println("error reading fifo: ", err.Error())
 			return err
 		}
 		if len(data) == 0 {
 			return fmt.Errorf("Container already started")
 		}
-		
+
 		return nil
 	},
 }

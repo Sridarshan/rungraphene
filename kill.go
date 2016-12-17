@@ -1,12 +1,12 @@
 package main
 
 import (
-	"os"
 	"fmt"
+	"os"
 	"path/filepath"
-	
-	"github.com/urfave/cli"
+
 	log "github.com/Sirupsen/logrus"
+	"github.com/urfave/cli"
 )
 
 var killCommand = cli.Command{
@@ -20,7 +20,7 @@ var killCommand = cli.Command{
 	},
 }
 
-var deleteCommand = cli.Command {
+var deleteCommand = cli.Command{
 	Name:        "delete",
 	Usage:       "TODO",
 	ArgsUsage:   "",
