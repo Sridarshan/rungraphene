@@ -77,23 +77,14 @@ var createCommand = cli.Command{
 			log.Println("Error writing container create info to json")
 		}
 
-		/*
-			cmd := exec.Command("ginit", id)
-			if err := cmd.Start(); err != nil {
-				if exErr, ok := err.(*exec.Error); ok {
-					if exErr.Err == exec.ErrNotFound || exErr.Err == os.ErrNotExist {
-						log.Println("ginit not installed on system")
-					} else {
-						log.Println("Error starting ginit", err)
-					}
-				}
-				// can we return an error instead? TODO
-				return nil
-			}
-		*/
-		// copyGraphene(bundle)
-		createPidFile(pidfile, 11)
-		log.Println("Returning from create command")
+		cmd := exec.Command("/proc/self/exe", "reexec", id)
+		if err := cmd.Start(); err != nil {
+			log.Println("Error re-execing rungraphene")
+			// can we return an error instead? TODO
+			return nil
+		}
+		createPidFile(pidfile, cmd.Process.Pid)
+		log.Println("Returning from create command, pid written: ", cmd.Process.Pid)
 		return nil
 	},
 }

@@ -1,12 +1,10 @@
 package main
 
 import (
-	// "bytes"
+	"fmt"
 	"encoding/json"
-	"io"
 	"io/ioutil"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"strings"
 
@@ -26,89 +24,22 @@ var startCommand = cli.Command{
 	Description: "TODO",
 	Action: func(context *cli.Context) error {
 		id := context.Args().First()
-		container, err := getContainer(id)
+		path := filepath.Join(rungrapheneWorkdir, id, fifo_name)
+		fifo, err := os.Open(path)
 		if err != nil {
-			log.Println(err)
+			log.Println("error opening fifo: ", err.Error())
 			return err
 		}
-
-		/*
-			// open the fifo file and readA
-			path := filepath.Join(rungrapheneWorkdir, id, fifo_name)
-			fifo, err := os.Open(path)
-			if err != nil {
-				log.Println(err)
-				return err
-			}
-			defer fifo.Close()
-			data, err := ioutil.ReadAll(fifo)
-			if err != nil {
-				log.Println(err)
-				return err
-			}
-			if len(data) == 0 {
-				return fmt.Errorf("Container already started")
-			}
-		*/
-		log.Println(container)
-
-		spec, err := readSpec(container.Bundle)
+		defer fifo.Close()
+		data, err := ioutil.ReadAll(fifo)
 		if err != nil {
-			log.Println("Error reading the spec file", err)
+			log.Println("error reading fifo: ",err.Error())
 			return err
 		}
-		manifestFile, err := generateManifestFile(container, spec)
-		if err != nil {
-			log.Println("Error writing manifest file", err)
-			return err
-		}
-
-		cf, err := os.OpenFile(container.Console, os.O_RDWR, 0644)
-		defer cf.Close()
-		if err != nil {
-			log.Println("Error in opening the console")
-			return err
+		if len(data) == 0 {
+			return fmt.Errorf("Container already started")
 		}
 		
-		/*
-		go io.Copy(cf, os.Stdout)
-		go io.Copy(cf, os.Stderr)
-		go io.Copy(os.Stdin, cf)
-		*/
-		
-
-		cmd := exec.Command(filepath.Join(grapheneBootstrap, loader, "pal"), manifestFile)
-		// cmd = exec.Command("echo", "dummy")
-		log.Println(cmd.Args)
-		cmd.Stdout = cf
-		cmd.Stderr = cf
-		cmd.Stdin = cf
-		
-		err = cmd.Run()
-		log.Println("Run error: ", err)
-		return err
-		
-
-		if err := cmd.Start(); err != nil {
-			log.Println(err.Error())
-			return err
-		}
-		go func() {
-			// io.Copy(cf, os.Stdout)
-			log.Println("Stdout closed")
-		}()
-
-		go func() {
-			io.Copy(os.Stdin, cf)
-			log.Println("Stdin closed")
-		}()
-
-		// io.Copy(cf, os.Stderr)
-		log.Println("Stderr closed")
-
-		io.WriteString(cf, "End\n")
-		err = cf.Close()
-
 		return nil
 	},
 }

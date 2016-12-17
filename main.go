@@ -33,6 +33,7 @@ func main() {
 		createCommand,
 		startCommand,
 		killCommand,
+		reexecCommand,
 	}
 	app.Flags = []cli.Flag{
 		cli.BoolFlag{
