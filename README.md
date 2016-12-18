@@ -39,14 +39,10 @@ docker run -it busybox_hello /hello
 I will fill this section with resources to help you create custom docker images.
 
 ### Links
-[OCI Runtime Spec]
-[Docker]
-[Containerd]
+[OCI Runtime Spec](https://github.com/opencontainers/runtime-spec)
+[Docker](https://github.com/docker/docker)
+[Containerd](https://github.com/docker/containerd)
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
     
    [Graphene]: <https://github.com/oscarlab/graphene>
-   [OCI Runtime Spec]: <https://github.com/opencontainers/runtime-spec>
-   [Docker]: <https://github.com/docker/docker>
-   [Containerd]: <https://github.com/docker/containerd>
-   
