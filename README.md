@@ -36,7 +36,8 @@ docker run -it busybox_hello /hello
 ```
 
 ### Building Docker Images
-I will fill this section with resources to help you create custom docker images.
+* `docker cp` is the easiest way to modify an existing running container. You can copy files from your host into a docker container, and then save the container to an image using the `docker commit` command.
+* Dockerfile : Dockerfile let you create images from the base. [Create Docker images from Dockerfile](https://docs.docker.com/engine/reference/builder/ "Dockerfile").
 
 ### Links
 * [OCI Runtime Spec](https://github.com/opencontainers/runtime-spec)
