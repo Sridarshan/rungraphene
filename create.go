@@ -15,9 +15,9 @@ import (
 
 var createCommand = cli.Command{
 	Name:        "create",
-	Usage:       "TODO",
-	ArgsUsage:   "TODO",
-	Description: "TODO",
+	Usage:       "create a container",
+	ArgsUsage:   "continer id, ptty, pid-file-path",
+	Description: "create a container",
 	Flags: []cli.Flag{
 		cli.StringFlag{
 			Name:  "bundle, b",

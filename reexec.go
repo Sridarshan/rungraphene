@@ -14,8 +14,8 @@ import (
 var reexecCommand = cli.Command{
 	Name:        "reexec",
 	Usage:       "Not to be called externally",
-	ArgsUsage:   "TODO",
-	Description: "TODO",
+	ArgsUsage:   "container id",
+	Description: "Rexecs rungraphene and waits for start command to begin the execution",
 	Action: func(context *cli.Context) error {
 		id := os.Args[2]
 		fifo_path := filepath.Join(rungrapheneWorkdir, id, fifo_name)

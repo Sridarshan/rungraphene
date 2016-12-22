@@ -1,0 +1,24 @@
+loader.preload = file:/home/sridarshan/524_1/Graphene/LibOS/shim/src/libsysdb.so
+loader.exec = DOCKER_EXEC_PATH
+loader.env.LD_LIBRARY_PATH = /lib2:/lib:/lib/x86_64-linux-gnu
+loader.debug_type = inline
+
+fs.mount.root.type = chroot
+fs.mount.root.path = /
+fs.mount.root.uri = DOCKER_ROOT
+
+fs.mount.dev.type = dev
+fs.mount.dev.path = /dev
+fs.mount.dev.uri = 
+
+fs.mount.tty.type = chroot
+fs.mount.tty.path = /dev/tty
+fs.mount.tty.uri = dev:tty
+
+fs.mount.proc.type = proc
+fs.mount.proc.path = /proc
+fs.mount.proc.uri = 
+
+fs.mount.lib.type = chroot
+fs.mount.lib.path = /lib2
+fs.mount.lib.uri = file:/home/sridarshan/524_1/Graphene/LibOS/glibc-build

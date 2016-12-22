@@ -15,9 +15,9 @@ import (
 
 var startCommand = cli.Command{
 	Name:        "start",
-	Usage:       "TODO",
+	Usage:       "call to start an already created container",
 	ArgsUsage:   "[containerd-id]",
-	Description: "TODO",
+	Description: "call to start an already created container",
 	Action: func(context *cli.Context) error {
 		id := context.Args().First()
 		path := filepath.Join(rungrapheneWorkdir, id, fifo_name)

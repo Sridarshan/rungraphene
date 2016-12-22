@@ -11,9 +11,9 @@ import (
 
 var killCommand = cli.Command{
 	Name:        "kill",
-	Usage:       "TODO",
+	Usage:       "kills a container",
 	ArgsUsage:   "<container-id> <signal>",
-	Description: "TODO",
+	Description: "kills a container",
 	Action: func(context *cli.Context) error {
 		log.Println("Nothing yet")
 		return nil
@@ -22,9 +22,9 @@ var killCommand = cli.Command{
 
 var deleteCommand = cli.Command{
 	Name:        "delete",
-	Usage:       "TODO",
+	Usage:       "deletes a container",
 	ArgsUsage:   "",
-	Description: "TODO",
+	Description: "deletes a container",
 	Action: func(context *cli.Context) error {
 		if len(context.Args()) < 1 {
 			return fmt.Errorf("Not enough args to delete command")
