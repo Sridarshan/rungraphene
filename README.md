@@ -15,6 +15,7 @@ $ git clone https://github.com/Sridarshan/rungraphene.git
 $ cd rungraphene
 $ make
 $ cp rungraphene /usr/bin/
+$ cp exec.manifest [Graphene_Base_Directory]
 ```
 
 ### Examples
